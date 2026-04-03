@@ -1,198 +1,306 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Music Player</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
-        .active-song { background: rgba(99, 102, 241, 0.3); border-left: 4px solid #6366f1; }
-        /* Smooth transition for range inputs */
-        input[type="range"] { height: 4px; border-radius: 999px; }
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #0f172a;
+        color: white;
+      }
+      .glass {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+      }
+      .active-song {
+        background: rgba(99, 102, 241, 0.3);
+        border-left: 4px solid #6366f1;
+      }
+      /* Smooth transition for range inputs */
+      input[type="range"] {
+        height: 4px;
+        border-radius: 999px;
+      }
     </style>
-</head>
-<body class="flex flex-col md:flex-row h-screen overflow-hidden">
-
-    <aside class="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-4 md:p-6 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-8 z-20 glass md:bg-transparent">
-        <div class="flex items-center gap-2 text-indigo-400 font-bold text-xl md:text-2xl">
-            <i data-lucide="music"></i> <span>My Library</span>
-        </div>
-        <nav class="flex flex-row md:flex-col gap-4 md:gap-6">
-            <a href="#" class="flex items-center gap-2 text-indigo-400 font-semibold"><i data-lucide="home" class="w-5 h-5"></i> <span class="hidden sm:inline">Dashboard</span></a>
-            <a href="#" class="flex items-center gap-2 text-slate-400 hover:text-white transition"><i data-lucide="list-music" class="w-5 h-5"></i> <span class="hidden sm:inline">Playlists</span></a>
-        </nav>
+  </head>
+  <body class="flex flex-col md:flex-row h-screen overflow-hidden">
+    <aside
+      class="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-4 md:p-6 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-8 z-20 glass md:bg-transparent"
+    >
+      <div
+        class="flex items-center gap-2 text-indigo-400 font-bold text-xl md:text-2xl"
+      >
+        <i data-lucide="music"></i> <span>My Library</span>
+      </div>
+      <nav class="flex flex-row md:flex-col gap-4 md:gap-6">
+        <a
+          href="#"
+          class="flex items-center gap-2 text-indigo-400 font-semibold"
+          ><i data-lucide="home" class="w-5 h-5"></i>
+          <span class="hidden sm:inline">Dashboard</span></a
+        >
+        <a
+          href="#"
+          class="flex items-center gap-2 text-slate-400 hover:text-white transition"
+          ><i data-lucide="list-music" class="w-5 h-5"></i>
+          <span class="hidden sm:inline">Playlists</span></a
+        >
+      </nav>
     </aside>
 
     <main class="flex-1 overflow-y-auto p-4 md:p-8 pb-40 md:pb-32">
-        <header class="mb-6 md:mb-10">
-            <h1 class="text-2xl md:text-3xl font-bold">Murmu Brother's Collection</h1>
-            <p class="text-slate-400 text-sm">Select a track to start listening</p>
-        </header>
+      <header class="mb-6 md:mb-10">
+        <h1 class="text-2xl md:text-3xl font-bold">
+          Murmu Brother's Collection
+        </h1>
+        <p class="text-slate-400 text-sm">Select a track to start listening</p>
+      </header>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-10" id="song-grid">
-            </div>
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-10"
+        id="song-grid"
+      ></div>
 
-        <div class="glass rounded-xl overflow-x-auto">
-            <table class="w-full text-left min-w-[400px]">
-                <thead class="border-b border-slate-700 text-slate-400 text-xs md:text-sm">
-                    <tr>
-                        <th class="p-4 w-12 text-center">#</th>
-                        <th class="p-4">Title</th>
-                        <th class="p-4 text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="song-table-body" class="text-sm md:text-base">
-                    </tbody>
-            </table>
-        </div>
+      <div class="glass rounded-xl overflow-x-auto">
+        <table class="w-full text-left min-w-[400px]">
+          <thead
+            class="border-b border-slate-700 text-slate-400 text-xs md:text-sm"
+          >
+            <tr>
+              <th class="p-4 w-12 text-center">#</th>
+              <th class="p-4">Title</th>
+              <th class="p-4 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="song-table-body" class="text-sm md:text-base"></tbody>
+        </table>
+      </div>
     </main>
 
-    <footer class="fixed bottom-0 w-full glass border-t border-slate-700 p-3 md:p-4 flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-3 md:gap-4 z-30">
-        
-        <div class="flex items-center gap-3 w-full md:w-1/3">
-            <div class="w-10 h-10 md:w-12 md:h-12 bg-indigo-600 rounded flex-shrink-0 flex items-center justify-center">
-                <i data-lucide="disc" class="text-white animate-spin-slow"></i>
-            </div>
-            <div class="overflow-hidden">
-                <p id="current-title" class="font-semibold text-xs md:text-sm truncate">No song selected</p>
-                <p class="text-[10px] md:text-xs text-slate-400">Now Playing</p>
-            </div>
+    <footer
+      class="fixed bottom-0 w-full glass border-t border-slate-700 p-3 md:p-4 flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-3 md:gap-4 z-30"
+    >
+      <div class="flex items-center gap-3 w-full md:w-1/3">
+        <div
+          class="w-10 h-10 md:w-12 md:h-12 bg-indigo-600 rounded flex-shrink-0 flex items-center justify-center"
+        >
+          <i data-lucide="disc" class="text-white animate-spin-slow"></i>
         </div>
+        <div class="overflow-hidden">
+          <p
+            id="current-title"
+            class="font-semibold text-xs md:text-sm truncate"
+          >
+            No song selected
+          </p>
+          <p class="text-[10px] md:text-xs text-slate-400">Now Playing</p>
+        </div>
+      </div>
 
-        <div class="flex flex-col items-center gap-1 md:gap-2 w-full md:w-1/3">
-            <div class="flex items-center gap-6 md:gap-8">
-                <button onclick="prevSong()" class="text-slate-400 hover:text-indigo-400 transition"><i data-lucide="skip-back" class="w-5 h-5 md:w-6 md:h-6"></i></button>
-                <button onclick="togglePlay()" id="play-btn" class="bg-white p-2.5 md:p-3 rounded-full text-black hover:scale-110 transition shadow-lg">
-                    <span id="play-icon-container"><i data-lucide="play" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i></span>
-                </button>
-                <button onclick="nextSong()" class="text-slate-400 hover:text-indigo-400 transition"><i data-lucide="skip-forward" class="w-5 h-5 md:w-6 md:h-6"></i></button>
-            </div>
-            <div class="w-full flex items-center gap-3">
-                <span id="curr-time" class="text-[10px] text-slate-400 w-8 text-right">0:00</span>
-                <input type="range" id="progress-bar" value="0" class="flex-1 accent-indigo-500 cursor-pointer">
-                <span id="total-time" class="text-[10px] text-slate-400 w-8 text-left">0:00</span>
-            </div>
+      <div class="flex flex-col items-center gap-1 md:gap-2 w-full md:w-1/3">
+        <div class="flex items-center gap-6 md:gap-8">
+          <button
+            onclick="prevSong()"
+            class="text-slate-400 hover:text-indigo-400 transition"
+          >
+            <i data-lucide="skip-back" class="w-5 h-5 md:w-6 md:h-6"></i>
+          </button>
+          <button
+            onclick="togglePlay()"
+            id="play-btn"
+            class="bg-white p-2.5 md:p-3 rounded-full text-black hover:scale-110 transition shadow-lg"
+          >
+            <span id="play-icon-container"
+              ><i
+                data-lucide="play"
+                class="w-5 h-5 md:w-6 md:h-6 fill-current"
+              ></i
+            ></span>
+          </button>
+          <button
+            onclick="nextSong()"
+            class="text-slate-400 hover:text-indigo-400 transition"
+          >
+            <i data-lucide="skip-forward" class="w-5 h-5 md:w-6 md:h-6"></i>
+          </button>
         </div>
+        <div class="w-full flex items-center gap-3">
+          <span id="curr-time" class="text-[10px] text-slate-400 w-8 text-right"
+            >0:00</span
+          >
+          <input
+            type="range"
+            id="progress-bar"
+            value="0"
+            class="flex-1 accent-indigo-500 cursor-pointer"
+          />
+          <span id="total-time" class="text-[10px] text-slate-400 w-8 text-left"
+            >0:00</span
+          >
+        </div>
+      </div>
 
-        <div class="hidden sm:flex items-center justify-end gap-3 w-1/3">
-            <i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i>
-            <input type="range" id="volume-control" class="w-20 md:w-24 accent-indigo-500 h-1">
-        </div>
+      <div class="hidden sm:flex items-center justify-end gap-3 w-1/3">
+        <i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i>
+        <input
+          type="range"
+          id="volume-control"
+          class="w-20 md:w-24 accent-indigo-500 h-1"
+        />
+      </div>
     </footer>
 
     <script>
-        const songs = [
-            { id: 0, title: "Mora Athara Saal Hoigala", file: "mora athara saal hoigala ( 128kbps ).mp3" },
-            { id: 1, title: "Tu Hi Hai Aashiqui (Solo)", file: "02_-_Tu_Hi_Hai_Aashiqui_(Solo)(wapking.cc).mp3" },
-            { id: 2, title: "Blood Pressure - Nagpuri", file: "KUMAR PRITAM & SUMAN GUPTA __ NEW NAGPURI VIDEO 2021 __ BLOOD PRESSURE __ BK TANTY & MEGHA ( 256kbps cbr ).mp3" },
-            { id: 3, title: "Aam Khatirte Injko Egerinjkan", file: "AAM KHATIRTE INJKO EGERINJKAN Santali HD@720p video ( 128kbps ).mp3" },
-            { id: 4, title: "O RE SAAWARIYA", file: "O-RE-SAAWARIYA-NEW-SANTALI-SONG.mp3" }
-        ];
+      const songs = [
+        {
+          id: 0,
+          title: "Mora Athara Saal Hoigala",
+          file: "songs/mora athara saal hoigala ( 128kbps ).mp3",
+          cover: "covers/mora athara saal hoigala.jpg",
+        },
+        {
+          id: 1,
+          title: "Tu Hi Hai Aashiqui (Solo)",
+          file: "songs/02_-_Tu_Hi_Hai_Aashiqui_(Solo)(wapking.cc).mp3",
+          cover: "covers/tu_hi_hain_aashiki_solo.jpg",
+        },
+        {
+          id: 2,
+          title: "Blood Pressure - Nagpuri",
+          file: "songs/KUMAR PRITAM & SUMAN GUPTA __ NEW NAGPURI VIDEO 2021 __ BLOOD PRESSURE __ BK TANTY & MEGHA ( 256kbps cbr ).mp3",
+          cover: "covers/BLOOD PRESSURE.jpg",
+        },
+        {
+          id: 3,
+          title: "Aam Khatirte Injko Egerinjkan",
+          file: "songs/AAM KHATIRTE INJKO EGERINJKAN Santali HD@720p video ( 128kbps ).mp3",
+          cover: "covers/AAM KHATIRTE INJKO EGERINJKAN.jpg",
+        },
+        {
+          id: 4,
+          title: "O RE SAAWARIYA",
+          file: "songs/O RE SAAWARIYA_NEW SANTALI SONG 2024.mp3",
+          cover: "covers/O-Re-Saawariya.jpg",
+        },
+      ];
 
-        let currentSongIndex = 0;
-        let isPlaying = false;
-        const audio = new Audio();
+      let currentSongIndex = 0;
+      let isPlaying = false;
+      const audio = new Audio();
 
-        const playIconContainer = document.getElementById('play-icon-container');
-        const currentTitleDisplay = document.getElementById('current-title');
-        const progressBar = document.getElementById('progress-bar');
-        const currTimeLabel = document.getElementById('curr-time');
-        const totalTimeLabel = document.getElementById('total-time');
+      const playIconContainer = document.getElementById("play-icon-container");
+      const currentTitleDisplay = document.getElementById("current-title");
+      const progressBar = document.getElementById("progress-bar");
+      const currTimeLabel = document.getElementById("curr-time");
+      const totalTimeLabel = document.getElementById("total-time");
 
-        function init() {
-            const grid = document.getElementById('song-grid');
-            const tableBody = document.getElementById('song-table-body');
+      function init() {
+        const grid = document.getElementById("song-grid");
+        const tableBody = document.getElementById("song-table-body");
 
-            songs.forEach((song, i) => {
-                grid.innerHTML += `
-                    <div onclick="playSong(${i})" class="glass p-3 md:p-4 rounded-xl cursor-pointer hover:bg-slate-700 transition group">
-                        <div class="w-full aspect-square bg-slate-800 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
-                             <i data-lucide="music-2" class="w-8 h-8 md:w-10 md:h-10 text-slate-600"></i>
-                             <div class="absolute inset-0 bg-indigo-600/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <i data-lucide="play" class="w-8 h-8 text-white fill-current"></i>
-                             </div>
+        songs.forEach((song, i) => {
+          grid.innerHTML += `
+                <div onclick="playSong(${i})" class="glass p-3 md:p-4 rounded-xl cursor-pointer hover:bg-slate-700 transition group">
+                    <div class="w-full aspect-square bg-slate-800 rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
+                        <img src="${song.cover}" class="w-full h-full object-cover rounded-lg" />
+                        
+                        <div class="absolute inset-0 bg-indigo-600/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <i data-lucide="play" class="w-8 h-8 text-white fill-current"></i>
                         </div>
-                        <h3 class="font-bold truncate text-xs md:text-sm">${song.title}</h3>
                     </div>
-                `;
+                    <h3 class="font-bold truncate text-xs md:text-sm">${song.title}</h3>
+                </div>
+            `;
 
-                tableBody.innerHTML += `
+          tableBody.innerHTML += `
                     <tr id="row-${i}" onclick="playSong(${i})" class="hover:bg-slate-800 transition cursor-pointer border-b border-slate-800/50">
                         <td class="p-3 md:p-4 text-slate-500 text-center">${i + 1}</td>
                         <td class="p-3 md:p-4 font-medium truncate max-w-[150px] md:max-w-none">${song.title}</td>
                         <td class="p-3 md:p-4 text-center"><i data-lucide="play" class="w-4 h-4 inline text-indigo-400"></i></td>
                     </tr>
                 `;
-            });
-            lucide.createIcons();
+        });
+        lucide.createIcons();
+      }
+
+      function playSong(index) {
+        currentSongIndex = index;
+        audio.src = songs[index].file;
+        currentTitleDisplay.innerText = songs[index].title;
+
+        document
+          .querySelectorAll("tr")
+          .forEach((tr) => tr.classList.remove("active-song"));
+        const activeRow = document.getElementById(`row-${index}`);
+        if (activeRow) activeRow.classList.add("active-song");
+
+        audio
+          .play()
+          .catch(() => console.log("File not found or interaction required."));
+        isPlaying = true;
+        updatePlayIcon();
+      }
+
+      function togglePlay() {
+        if (!audio.src) {
+          playSong(0);
+          return;
         }
+        if (isPlaying) audio.pause();
+        else audio.play();
+        isPlaying = !isPlaying;
+        updatePlayIcon();
+      }
 
-        function playSong(index) {
-            currentSongIndex = index;
-            audio.src = songs[index].file;
-            currentTitleDisplay.innerText = songs[index].title;
-            
-            document.querySelectorAll('tr').forEach(tr => tr.classList.remove('active-song'));
-            const activeRow = document.getElementById(`row-${index}`);
-            if(activeRow) activeRow.classList.add('active-song');
+      function updatePlayIcon() {
+        // Re-rendering the icon is necessary for Lucide to update properly
+        const iconName = isPlaying ? "pause" : "play";
+        playIconContainer.innerHTML = `<i data-lucide="${iconName}" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i>`;
+        lucide.createIcons();
+      }
 
-            audio.play().catch(() => console.log("File not found or interaction required."));
-            isPlaying = true;
-            updatePlayIcon();
-        }
+      function nextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        playSong(currentSongIndex);
+      }
 
-        function togglePlay() {
-            if (!audio.src) { playSong(0); return; }
-            if (isPlaying) audio.pause(); else audio.play();
-            isPlaying = !isPlaying;
-            updatePlayIcon();
-        }
+      function prevSong() {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        playSong(currentSongIndex);
+      }
 
-        function updatePlayIcon() {
-            // Re-rendering the icon is necessary for Lucide to update properly
-            const iconName = isPlaying ? 'pause' : 'play';
-            playIconContainer.innerHTML = `<i data-lucide="${iconName}" class="w-5 h-5 md:w-6 md:h-6 fill-current"></i>`;
-            lucide.createIcons();
-        }
+      audio.addEventListener("timeupdate", () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = progress || 0;
+        currTimeLabel.innerText = formatTime(audio.currentTime);
+        if (!isNaN(audio.duration))
+          totalTimeLabel.innerText = formatTime(audio.duration);
+      });
 
-        function nextSong() {
-            currentSongIndex = (currentSongIndex + 1) % songs.length;
-            playSong(currentSongIndex);
-        }
+      progressBar.addEventListener("input", () => {
+        audio.currentTime = (progressBar.value * audio.duration) / 100;
+      });
 
-        function prevSong() {
-            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-            playSong(currentSongIndex);
-        }
+      function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? "0" + sec : sec}`;
+      }
 
-        audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.value = progress || 0;
-            currTimeLabel.innerText = formatTime(audio.currentTime);
-            if (!isNaN(audio.duration)) totalTimeLabel.innerText = formatTime(audio.duration);
+      audio.addEventListener("ended", nextSong);
+
+      document
+        .getElementById("volume-control")
+        .addEventListener("input", (e) => {
+          audio.volume = e.target.value / 100;
         });
 
-        progressBar.addEventListener('input', () => {
-            audio.currentTime = (progressBar.value * audio.duration) / 100;
-        });
-
-        function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return `${min}:${sec < 10 ? '0' + sec : sec}`;
-        }
-
-        audio.addEventListener('ended', nextSong);
-
-        document.getElementById('volume-control').addEventListener('input', (e) => {
-            audio.volume = e.target.value / 100;
-        });
-
-        init();
+      init();
     </script>
-</body>
+  </body>
 </html>
