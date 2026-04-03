@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous" />
+
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+        <title>Dream Records Clone</title>
+        <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #0b0b0b;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* Navbar Fixes */
+      header {
+        background: rgb(19, 9, 9);
+        z-index: 1000;
+      }
+      .navbar-brand {
+        color: #e50914 !important;
+        font-weight: bold;
+        font-size: 24px;
+      }
+      .nav-link {
+        color: #fff !important;
+        margin-left: 15px;
+        transition: 0.3s;
+      }
+      .nav-link:hover {
+        color: #e50914 !important;
+      }
+
+      .btn-login {
+        border: 1px solid #fff;
+        color: #fff !important;
+        padding: 5px 15px;
+        border-radius: 4px;
+        margin-left: 10px;
+        text-decoration: none;
+      }
+      .btn-register {
+        background: #e50914;
+        color: #fff !important;
+        padding: 6px 18px;
+        border-radius: 4px;
+        margin-left: 10px;
+        text-decoration: none;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center; /* Vertically centers the logo with the text */
+        gap: 15px; /* Adds space between the logo and text */
+      }
+
+      .side-logo {
+        height: 100px; /* Set a fixed height */
+        width: auto; /* Maintains aspect ratio */
+        display: block;
+      }
+
+      .brand-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      /* Hero Section - Responsive Font */
+      .hero {
+        height: 80vh;
+        margin-top: -114px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3")
+            center/cover;
+        padding: 0 20px;
+      }
+      .hero h2 {
+        font-size: clamp(30px, 8vw, 60px); /* Responsive font sizing */
+        margin-bottom: 15px;
+      }
+      .hero p {
+        font-size: clamp(16px, 4vw, 22px);
+        color: #aaa;
+        margin-bottom: 30px;
+      }
+
+      /* Artists Carousel Section */
+      .section {
+        padding: 60px 0;
+        text-align: center;
+      }
+      .carousel-container {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        margin-top: 40px;
+      }
+      .carousel-track {
+        display: flex;
+        width: max-content; /* Automatically adjusts to content size */
+        animation: scroll 30s linear infinite;
+      }
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        } /* Perfect loop regardless of width */
+      }
+      /* .carousel-container:hover .carousel-track {
+        animation-play-state: paused;
+      } */
+
+      .card {
+        flex: 0 0 220px; /* Slightly smaller for mobile */
+        background: transparent;
+        border: none;
+        margin: 0 10px;
+        color: white;
+      }
+      .card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+      .carousel-header h2 span {
+        color: #ff4d4d;
+      }
+
+      /* Mobile Navbar Adjustments */
+      @media (max-width: 991px) {
+        .navbar-collapse {
+          background: #000000;
+          padding: 20px;
+          text-align: center;
+        }
+        .nav-link {
+          margin: 10px 0;
+        }
+        .btn-login,
+        .btn-register {
+          display: inline-block;
+          margin: 10px auto;
+        }
+        /* .navbar-toggler{
+            border-color: #000000;
+        } */
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: #000;
+        color: #555;
+      }
+    </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container">
+                <div class="logo-container">
+                    <img src="Murmu Brothers music.png" alt="Company Logo"
+                        class="side-logo" />
+                </div>
+                <button class="navbar-toggler"   type="button"   data-bs-toggle="collapse"  data-bs-target="#navbarNav">
+                    <span><i class="fa-solid fa-bars" style="color: rgb(255, 255, 255);"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link"
+                                href="#home">Home</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#artists">Artists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#releases">Releases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="login.html" class="btn-login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="btn-register">Join Now</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section id="home" class="hero">
+            <h2>We Shape The Sound of Tomorrow</h2>
+            <p>Discover new music and groundbreaking artists.</p>
+            <a href="#releases"
+                class="btn btn-danger btn-lg px-4 fw-bold">Listen Now</a>
+        </section>
+
+        <section id="artists" class="section">
+            <div class="container carousel-header">
+                <h2>From Our <span>Labels & Artists</span></h2>
+                <p class="text-muted">
+                    Dream Records proudly handles the distribution of songs for
+                    all these
+                    esteemed artists and labels.
+                </p>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="card">
+                        <img
+                            src="https://scontent.fccu19-1.fna.fbcdn.net/v/t1.6435-9/142165832_2900598340260502_3692270045489595754_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=6Ex6yvIH0f8Q7kNvwH0F4-q&_nc_oc=AdqdBz-jj8Gs-gbGrkoheG_LFlNrUv_RCZahjAqqSH09lnWMtwOfkm53ktHlQ0Z0P2E&_nc_zt=23&_nc_ht=scontent.fccu19-1.fna&_nc_gid=1zDSwXCjwyYlYYOoIM2YcQ&_nc_ss=7a3a8&oh=00_AfxRGToPUIlDBzNXizjKzn1LGkIc4u_FrBSm073Dkp90VA&oe=69F2E8AC"
+                            alt="Artist" />
+                        <h3>Porayani Soren</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://images.genius.com/4d2f28c9e3747ee242acd487f796013c.1000x1000x1.jpg"
+                            alt="Artist" />
+                        <h3>Gangadhar Bindhani</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwOWSznsHB9xU45Nio_Ja922Z3idfJUkq4QA&s"
+                            alt="Artist" />
+                        <h3>Shivendra Murmu</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://i.ytimg.com/vi/8NRes_3dbeg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC7gx-kIbaJb0P5_0sOIU_q4ED6Kg"
+                            alt="Artist" />
+                        <h3>Nirmala Kisku</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://yt3.googleusercontent.com/o3HI0_ldp7QgQGJ4VUfojJ2c7x_wzHuHRxO4mc3BKGxnwfXB4mlMHA0j_gtzXImAxQYPDb7F3Q=s900-c-k-c0x00ffffff-no-rj"
+                            alt="Artist" />
+                        <h3>Chatura Tudu</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://cdn-images.dzcdn.net/images/cover/a93d95bce93be3d15d8b7d207054459e/1900x1900-000000-80-0-0.jpg"
+                            alt="Artist" />
+                        <h3>Logen Mardi</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://cdn-images.dzcdn.net/images/cover/6ae6a2ab242e4fefd185156bd4455b46/1900x1900-000000-80-0-0.jpg"
+                            alt="Artist" />
+                        <h3>Rathin Kisku</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP89WaDDTQJHcuCUpYFR-cVXeSTkIQBgLMC9L6EjlJbjGGO3qH97LEaZdiKp1U1iU1YXgEVHU-pSmHFPKcU9jwZoZD7ZndEpKXKWwbFg&s=10"
+                            alt="Artist" />
+                        <h3>Jamuna Tudu</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://yt3.googleusercontent.com/ytc/AIdro_lGPKbqEAeZOC7pnv1_Kin3krdXSL8CRv1vyG3N_dldbj0=s900-c-k-c0x00ffffff-no-rj"
+                            alt="Artist" />
+                        <h3>Raju Soren</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCp7j5G2DfMm7iWIlxcAn9EMrJdqMpfk6Kwg&s"
+                            alt="Artist" />
+                        <h3>Romeo Baskey</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://c.saavncdn.com/artists/Prafulla_Murmu_000_20240918091447_500x500.jpg"
+                            alt="Artist" />
+                        <h3>Prafulla Murmu</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://i1.sndcdn.com/artworks-000493615839-lyv3au-t500x500.jpg"
+                            alt="Artist" />
+                        <h3>Singrai Soren</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPbf-GOWGYJgWCUlSk0wGPYfXrkP7i_s72dCEUG4rbt7gQ6hn2l68U2R4DPGG6PA8w2K-SPyM6vXpiMJSIR4FVaPJjDynkzuIEfsBM1g&s=10"
+                            alt="Artist" />
+                        <h3>Ram Mardi</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://yt3.googleusercontent.com/3VjgpROQX9aFlwToTq3eZpX5stLQC9LjqrgdI-K8_0QeUXyvObYpc0Z8-WfEW5kYQ05iuDr_wqo=s900-c-k-c0x00ffffff-no-rj"
+                            alt="Artist" />
+                        <h3>Mahenta Soren</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0k_nrMxrr8iQKYTl931HI2rmx3Bz7yDcqnA&s"
+                            alt="Artist" />
+                        <h3>Masang Hansdah</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/48/c0/64/48c06493-d628-3759-74b6-75f3701791bc/8909561309725.jpg/400x400bb.webp"
+                            alt="Artist" />
+                        <h3>Geeta Baskey</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://i.scdn.co/image/ab67616d00001e0254ec667569fb424694ca621a"
+                            alt="Artist" />
+                        <h3>Sawan Murmu</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKx8__fpCa48vVlJhWHkyXgYnH0gqlM9EB5g&s"
+                            alt="Artist" />
+                        <h3>Dhani Marandi</h3>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="https://yt3.googleusercontent.com/kHZ6aa_53ZQYwQSkSIgexgLer9VmxMFhOHDnid-xSftXVHNqG4UX-zS3c9-Wr5svV9QKu1c_clA=s900-c-k-c0x00ffffff-no-rj"
+                            alt="Artist" />
+                        <h3>Tina Hembrom</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-lg-start text-white"
+            style="background-color: #101113">
+            <!-- Remove the container if you want to extend the Footer to full width. -->
+            <div class="container my-5">
+                <!-- Footer -->
+
+                <!-- Section: Social media -->
+                <section
+                    class="d-flex justify-content-between p-4"
+                    style="background-color: #dc3545">
+                    <!-- Left -->
+                    <div class="me-5">
+                        <span>Get connected with us on social networks:</span>
+                    </div>
+                    <!-- Left -->
+
+                    <!-- Right -->
+                    <div>
+                        <a
+                            href="https://www.facebook.com/ing.MurmuBrothers/mentions/"
+                            class="text-white me-4">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://x.com/" class="text-white me-4">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://hisichere.com/"
+                            class="text-white me-4">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a
+                            href="https://www.instagram.com/james_murmu?fbclid=IwY2xjawQ4ZaFleHRuA2FlbQIxMABicmlkETFRRXNlTzhuMjRmUUJTV3l5c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHo_9OocH3D-9HHxKmzyIO9GV3L89QSNO1hcYGdm8Wh6aT7vffgEl6A0Uqu7Y_aem_7ngLZOFocrowMAF7hY_l-w"
+                            class="text-white me-4">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/"
+                            class="text-white me-4">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/" class="text-white me-4">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <!-- Right -->
+                </section>
+                <!-- Section: Social media -->
+
+                <!-- Section: Links  -->
+                <section class>
+                    <div class="container text-center text-md-start mt-5">
+                        <!-- Grid row -->
+                        <div class="row mt-3">
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                <!-- Content -->
+                                <h6 class="text-uppercase fw-bold">Murmu
+                                    Brothers</h6>
+                                <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #7c4dff; height: 2px" />
+                                <p>
+                                    DistributeYour Music Globally
+                                    Don’t stay a sideliner anymore. If your
+                                    music needs to be listened to, then it must
+                                    be listened to by the whole world. Release
+                                    your music on Spotify and other online
+                                    platforms and go viral. Get yourself on
+                                    major platforms like Spotify, AppleMusic,
+                                    AmazonMusic and many more.
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Products</h6>
+                                <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #7c4dff; height: 2px" />
+                                <p>
+                                    <a href="https://hisichere.com/"
+                                        class="text-white">hisichere.com</a>
+                                </p>
+                                <p>
+                                    <a href="https://www.moderndisom.in/"
+                                        class="text-white">moderndisom.in</a>
+                                </p>
+                                <p>
+                                    <a href="#!"
+                                        class="text-white">Murmu Brothers</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-white">Murmu Brothers</a>
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Useful
+                                    links</h6>
+                                <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #7c4dff; height: 2px" />
+                                <p>
+                                    <a href="#!" class="text-white">Your
+                                        Account</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-white">Become an
+                                        Affiliate</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-white">Shipping
+                                        Rates</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-white">Help</a>
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Contact</h6>
+                                <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #7c4dff; height: 2px" />
+                                <p><i class="fas fa-home mr-3"></i> Dubrajpur, Tundi, Dhanbad, Jharkhand 828142</p>
+                                <p><i class="fas fa-envelope mr-3"></i>murmubrothers@gmail.com</p>
+                                <p><i class="fas fa-phone mr-3"></i>9905458223</p>
+                                <p ><i class="fa-solid fa-location-dot" style="color: rgb(255, 255, 255);"></i><a href="https://maps.app.goo.gl/53Gftf5RkrQRsTcF6">Murmu Brothers</a></p>
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+                    </div>
+                </section>
+                <!-- Section: Links  -->
+
+                <!-- Copyright -->
+                <div
+                    class="text-center p-3"
+                    style="background-color: rgba(0, 0, 0, 0.2)">
+                    © 2026 Copyright:
+                    <a class="text-white"
+                        href="index2.html">Murmu Brothers</a>
+                </div>
+                <!-- Copyright -->
+
+                <!-- Footer -->
+            </div>
+            <!-- End of .container -->
+        </footer>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
